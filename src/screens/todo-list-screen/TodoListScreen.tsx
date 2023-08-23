@@ -9,13 +9,14 @@ import {Button, Container} from '../../components';
 import {useTodoList} from './hooks/useTodoList';
 
 export const TodoListScreen: React.FC = () => {
-  const {goToCalendar} = useTodoList();
+  const {goToCalendar, handleIncrement, count} = useTodoList();
 
   return (
     <SafeAreaView>
       <Container>
         <Text style={style.title}>Hello Todo List</Text>
         <Button onPress={goToCalendar}>Calendar</Button>
+        <Button onPress={handleIncrement}>Count {count}</Button>
       </Container>
     </SafeAreaView>
   );
