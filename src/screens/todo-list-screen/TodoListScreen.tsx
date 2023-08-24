@@ -1,22 +1,56 @@
 // ========== Todo List Screen
 // import all packages
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
 import style from './style';
 
 // import all components
-import {Button, Container} from '../../components';
-import {useTodoList} from './hooks/useTodoList';
+import {Container, Card} from '../../components';
+
+const data = [
+  {
+    id: 1,
+    title: 'Wathing movie',
+    date: '2023-10-02',
+    time: '03:00 PM',
+  },
+  {
+    id: 2,
+    title: 'Learning Java',
+    date: '2023-10-01',
+    time: '11:00 PM',
+  },
+  {
+    id: 3,
+    title: 'Sleeping',
+    date: '2023-09-20',
+    time: '02:00 PM',
+  },
+  {
+    id: 4,
+    title: 'Wathing Anime',
+    date: '2023-08-02',
+    time: '01:00 PM',
+  },
+];
 
 export const TodoListScreen: React.FC = () => {
-  const {goToCalendar, handleIncrement, count} = useTodoList();
-
   return (
-    <SafeAreaView>
+    <SafeAreaView style={style.hero}>
       <Container>
-        <Text style={style.title}>Hello Todo List</Text>
-        <Button onPress={goToCalendar}>Calendar</Button>
-        <Button onPress={handleIncrement}>Count {count}</Button>
+        <View style={style.header}>
+          <Text style={style.title}>Tasks</Text>
+          <TouchableOpacity>
+            <Text style={style.addTask}>Add Task</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={style.row}>
+          {data.map(item => (
+            <View style={style.col} key={item.id.toString()}>
+              <Card />
+            </View>
+          ))}
+        </View>
       </Container>
     </SafeAreaView>
   );
