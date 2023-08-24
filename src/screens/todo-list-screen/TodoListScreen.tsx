@@ -5,7 +5,8 @@ import {SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
 import style from './style';
 
 // import all components
-import {Container, Card} from '../../components';
+import {Container, Card, Modal} from '../../components';
+import {useTodoList} from './hooks/useTodoList';
 
 const data = [
   {
@@ -35,12 +36,15 @@ const data = [
 ];
 
 export const TodoListScreen: React.FC = () => {
+  const {modalRef, handleOpenModal} = useTodoList();
+
   return (
     <SafeAreaView style={style.hero}>
+      <Modal ref={modalRef} />
       <Container>
         <View style={style.header}>
           <Text style={style.title}>Tasks</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleOpenModal}>
             <Text style={style.addTask}>Add Task</Text>
           </TouchableOpacity>
         </View>

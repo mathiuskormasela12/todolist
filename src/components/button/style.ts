@@ -6,12 +6,17 @@ import {generateSize} from '../../helpers';
 
 const style = StyleSheet.create({
   btn: {
-    backgroundColor: Colors.primary,
-    width: generateSize(28, 'width'),
-    height: generateSize(7, 'height'),
+    width: '100%',
     borderRadius: generateSize(1.2, 'width'),
     justifyContent: 'center',
     alignItems: 'center',
+    height: generateSize(6.2, 'height'),
+  },
+  btnPrimary: {
+    backgroundColor: Colors.primary,
+  },
+  btnDanger: {
+    backgroundColor: Colors.danger,
   },
   text: {
     fontFamily: Fonts.base,

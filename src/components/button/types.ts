@@ -3,5 +3,6 @@
 import {PropsWithChildren} from 'react';
 
 export interface IButton extends PropsWithChildren {
-  onPress: () => void;
+  onPress?: () => void;
+  variant: 'primary' | 'danger';
 }

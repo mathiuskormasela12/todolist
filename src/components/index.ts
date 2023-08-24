@@ -6,3 +6,4 @@ export * from './redux-wrapper/ReduxWrapper';
 export * from './navigation-wrapper/NavigationWrapper';
 export * from './tab-view/TabView';
 export * from './card/Card';
+export * from './modal/Modal';

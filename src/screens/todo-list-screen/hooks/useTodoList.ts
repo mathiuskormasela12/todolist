@@ -1,25 +1,20 @@
 // ========= Todo List Hooks
 // import all packages
-import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {HandlerFunction, RootStackParamList, UseTodoList} from './types';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppDispatch, RootState} from '../../../redux/store';
-import {increment} from '../../../redux/features/counter/counter.slice';
+import {useRef} from 'react';
+import {HandlerFunction, UseTodoList} from './types';
+import {IModalRef} from '../types';
 
 export const useTodoList: UseTodoList = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const dispatch = useDispatch<AppDispatch>();
-  const count: number = useSelector(
-    (state: RootState) => state.counterReducer.count,
-  );
+  const modalRef = useRef<IModalRef>(null);
 
-  const goToCalendar: HandlerFunction = () => {
-    navigation.navigate('Event');
+  const handleOpenModal: HandlerFunction = () => {
+    if (modalRef.current) {
+      modalRef.current?.setVisible(!modalRef.current.visible);
+    }
   };
 
-  const handleIncrement: HandlerFunction = () => {
-    dispatch(increment({count: 1}));
+  return {
+    handleOpenModal,
+    modalRef,
   };
-
-  return {goToCalendar, count, handleIncrement};
 };
