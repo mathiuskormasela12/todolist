@@ -4,8 +4,8 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-// import all screens
-import {TodoListScreen, EventScreen} from '../../screens';
+// import all components
+import {TabView} from '../../components';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,14 +15,7 @@ export const NavigationWrapper: React.FC = () => {
       <Stack.Navigator>
         <Stack.Screen
           name="TodoList"
-          component={TodoListScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Event"
-          component={EventScreen}
+          component={TabView}
           options={{
             headerShown: false,
           }}
