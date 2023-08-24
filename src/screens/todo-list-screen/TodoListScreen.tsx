@@ -12,7 +12,7 @@ const data = [
   {
     id: 1,
     title: 'Wathing movie',
-    date: '2023-10-02',
+    date: 'I will watch K-Drama for 3 hours and then I will learn about Korean hangul',
     time: '03:00 PM',
   },
   {
@@ -36,22 +36,34 @@ const data = [
 ];
 
 export const TodoListScreen: React.FC = () => {
-  const {modalRef, handleOpenModal} = useTodoList();
+  const {modalRef, handleOpenModal, typeModal, handleTypeModal} = useTodoList();
 
   return (
     <SafeAreaView style={style.hero}>
-      <Modal ref={modalRef} />
+      <Modal type={typeModal} ref={modalRef} />
       <Container>
         <View style={style.header}>
           <Text style={style.title}>Tasks</Text>
-          <TouchableOpacity onPress={handleOpenModal}>
+          <TouchableOpacity
+            onPress={() => {
+              handleTypeModal('Add');
+              handleOpenModal();
+            }}>
             <Text style={style.addTask}>Add Task</Text>
           </TouchableOpacity>
         </View>
         <View style={style.row}>
           {data.map(item => (
             <View style={style.col} key={item.id.toString()}>
-              <Card />
+              <Card
+                title={item.title}
+                description={item.date}
+                time={item.time}
+                onPress={() => {
+                  handleTypeModal('Update');
+                  handleOpenModal();
+                }}
+              />
             </View>
           ))}
         </View>

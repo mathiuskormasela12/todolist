@@ -1,17 +1,23 @@
 // ========== Card
 // import all packages
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import style from './style';
+import {ICardProps} from './types';
 
-export const Card: React.FC = () => {
+export const Card: React.FC<ICardProps> = ({
+  time,
+  title,
+  description,
+  onPress,
+}) => {
   return (
-    <View style={style.card}>
+    <TouchableOpacity onPress={onPress} style={style.card}>
       <View>
-        <Text style={style.title}>Watching movie</Text>
-        <Text style={style.text}>2023-05-21</Text>
+        <Text style={style.title}>{title}</Text>
+        <Text style={style.text}>{description.slice(0, 15).concat('...')}</Text>
       </View>
-      <Text style={style.text}>03:00 PM</Text>
-    </View>
+      <Text style={style.text}>{time}</Text>
+    </TouchableOpacity>
   );
 };

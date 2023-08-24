@@ -12,6 +12,9 @@ const style = StyleSheet.create({
     alignItems: 'center',
     height: generateSize(6.2, 'height'),
   },
+  btnDisabled: {
+    backgroundColor: Colors.disabledButton,
+  },
   btnPrimary: {
     backgroundColor: Colors.primary,
   },

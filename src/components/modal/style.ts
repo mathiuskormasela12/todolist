@@ -45,12 +45,6 @@ const style = StyleSheet.create({
     fontSize: generateSize(3.4, 'width'),
     marginBottom: generateSize(1, 'height'),
   },
-  input: {
-    backgroundColor: Colors.light,
-    borderRadius: generateSize(1, 'width'),
-    paddingLeft: generateSize(3.2, 'width'),
-    height: generateSize(6.2, 'height'),
-  },
   deleteText: {
     color: Colors.danger,
     fontFamily: Fonts.bold,

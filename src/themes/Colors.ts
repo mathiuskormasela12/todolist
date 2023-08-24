@@ -6,5 +6,6 @@ export const Colors = {
   white: '#FFFFFF',
   light: '#F6F6F6',
   danger: '#F96060',
+  disabledButton: 'hsl(0, 0%, 71%)',
   placeholderColor: '#C6C6C6',
 };
