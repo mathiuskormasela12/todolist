@@ -7,6 +7,7 @@ import {generateSize} from '../../helpers';
 const style = StyleSheet.create({
   input: {
     backgroundColor: Colors.light,
+    color: Colors.dark,
     borderRadius: generateSize(1, 'width'),
     paddingHorizontal: generateSize(3.2, 'width'),
     height: generateSize(6.2, 'height'),

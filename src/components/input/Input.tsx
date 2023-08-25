@@ -4,6 +4,7 @@ import React, {Fragment} from 'react';
 import {TextInput, Text} from 'react-native';
 import {IInputProps} from './types';
 import style from './style';
+import {Colors} from '../../themes';
 
 export const Input: React.FC<IInputProps> = ({invalid, ...props}) => {
   const styles: Record<string, string | number>[] = [style.input];
@@ -18,7 +19,11 @@ export const Input: React.FC<IInputProps> = ({invalid, ...props}) => {
 
   return (
     <Fragment>
-      <TextInput style={styles} {...props} />
+      <TextInput
+        style={styles}
+        {...props}
+        placeholderTextColor={Colors.placeholderColor}
+      />
       {invalid && <Text style={style.errorMessage}>{invalid}</Text>}
     </Fragment>
   );
