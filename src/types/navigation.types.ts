@@ -1,5 +1,5 @@
 // ========= Navigation Types
 
-export type ScreenNames = ['TodoList', 'Event'];
+export type ScreenNames = ['TodoList'];
 
-export type ScreenName = 'TodoList' | 'Event';
+export type ScreenName = 'TodoList';

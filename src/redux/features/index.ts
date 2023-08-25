@@ -5,17 +5,17 @@ import storage from '@react-native-async-storage/async-storage';
 import {persistReducer} from 'redux-persist';
 
 // import all reducers
-import counterSlice from './counter/counter.slice';
+import tasksSlice from './tasks/tasks.slice';
 
 const rootPersistConfig = {
   key: 'root',
   version: 1,
   storage,
-  blacklist: ['counterReducer'],
+  blacklist: ['tasksReducer'],
 };
 
 const rootReducer = combineReducers({
-  counterReducer: counterSlice,
+  tasksReducer: tasksSlice,
 });
 
 export default persistReducer(rootPersistConfig, rootReducer);
