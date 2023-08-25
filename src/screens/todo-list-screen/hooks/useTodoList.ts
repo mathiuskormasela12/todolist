@@ -1,25 +1,60 @@
 // ========= Todo List Hooks
 // import all packages
-import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {HandlerFunction, RootStackParamList, UseTodoList} from './types';
+import {useEffect, useRef, useState} from 'react';
+import {HandlerFunction, UseTodoList} from './types';
+import {IModalRef} from '../types';
+import {ModalType} from '../../../components/modal/types';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch, RootState} from '../../../redux/store';
-import {increment} from '../../../redux/features/counter/counter.slice';
+import {
+  getTask,
+  getTasks,
+  setTask,
+} from '../../../redux/features/tasks/tasks.slice';
 
 export const useTodoList: UseTodoList = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const modalRef = useRef<IModalRef>(null);
+  const [typeModal, setTypeModal] = useState<ModalType>('Add');
   const dispatch = useDispatch<AppDispatch>();
-  const count: number = useSelector(
-    (state: RootState) => state.counterReducer.count,
-  );
+  const tasks = useSelector((states: RootState) => states.tasksReducer.tasks);
 
-  const goToCalendar: HandlerFunction = () => {
-    navigation.navigate('Event');
+  const handleTypeModal = (type: ModalType): void => setTypeModal(type);
+
+  const handleOpenModal: HandlerFunction = () => {
+    if (modalRef.current) {
+      modalRef.current?.setVisible(!modalRef.current.visible);
+    }
   };
 
-  const handleIncrement: HandlerFunction = () => {
-    dispatch(increment({count: 1}));
+  const handleGetDetail = (id: string) => {
+    handleTypeModal('Update');
+    dispatch(getTask(id));
+    handleOpenModal();
   };
 
-  return {goToCalendar, count, handleIncrement};
+  const handleResetForm: HandlerFunction = () => {
+    dispatch(
+      setTask({
+        id: '',
+        taskName: '',
+        taskDescription: '',
+        time: '',
+      }),
+    );
+  };
+
+  useEffect(() => {
+    dispatch(getTasks());
+  }, [dispatch]);
+
+  return {
+    handleOpenModal,
+    modalRef,
+    typeModal,
+    handleTypeModal,
+    tasks,
+    handleGetDetail,
+    setValue: modalRef.current?.setValue,
+    handleResetForm,
+  };
 };
