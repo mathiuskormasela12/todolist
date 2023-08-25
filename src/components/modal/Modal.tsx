@@ -1,6 +1,6 @@
 // ========== Modal
 // import all packages
-import React, {forwardRef, useImperativeHandle, useState} from 'react';
+import React, {forwardRef, useImperativeHandle} from 'react';
 import {
   Modal as ReactModal,
   Text,
@@ -20,15 +20,30 @@ import {useModal} from './hooks/useModal';
 import {IModalProps} from './types';
 
 export const Modal = forwardRef((props: IModalProps, ref) => {
-  const [visible, setVisible] = useState(false);
-  const {control, errors, handleSubmit, onSubmit} = useModal();
+  const {
+    control,
+    errors,
+    handleSubmit,
+    onSubmit,
+    visible,
+    setVisible,
+    setValue,
+    onDelete,
+    resetForm,
+  } = useModal(props.type);
 
   useImperativeHandle(ref, () => ({
     visible,
     setVisible,
+    setValue,
   }));
 
-  const handleClose = (): void => setVisible(currentVisible => !currentVisible);
+  const handleClose = (): void => {
+    setVisible(currentVisible => {
+      return !currentVisible;
+    });
+    resetForm();
+  };
 
   const disabled =
     typeof errors.taskName?.message === 'string' ||
@@ -73,9 +88,9 @@ export const Modal = forwardRef((props: IModalProps, ref) => {
                   rules={{
                     required: 'Task description is required',
                     maxLength: {
-                      value: 10,
+                      value: 100,
                       message:
-                        'Task description cannot be more than 10 characters',
+                        'Task description cannot be more than 100 characters',
                     },
                   }}
                   render={({field: {onChange, onBlur, value}}) => (
@@ -100,7 +115,7 @@ export const Modal = forwardRef((props: IModalProps, ref) => {
                 </Button>
               </View>
               <View style={style.field}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={onDelete}>
                   <Text style={style.deleteText}>Delete Task</Text>
                 </TouchableOpacity>
               </View>

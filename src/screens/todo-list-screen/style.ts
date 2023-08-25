@@ -20,7 +20,8 @@ const style = StyleSheet.create({
     color: Colors.primary,
   },
   row: {
-    marginTop: generateSize(1.8, 'height'),
+    marginVertical: generateSize(1.8, 'height'),
+    flex: 1,
   },
   col: {
     marginBottom: generateSize(1.3, 'height'),

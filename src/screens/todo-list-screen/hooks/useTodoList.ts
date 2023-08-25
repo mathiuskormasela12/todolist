@@ -1,27 +1,22 @@
 // ========= Todo List Hooks
 // import all packages
-import {useRef, useState} from 'react';
-import {useForm, SubmitHandler} from 'react-hook-form';
-import {HandlerFunction, ITodoListForm, UseTodoList} from './types';
+import {useEffect, useRef, useState} from 'react';
+import {HandlerFunction, UseTodoList} from './types';
 import {IModalRef} from '../types';
 import {ModalType} from '../../../components/modal/types';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppDispatch, RootState} from '../../../redux/store';
+import {
+  getTask,
+  getTasks,
+  setTask,
+} from '../../../redux/features/tasks/tasks.slice';
 
 export const useTodoList: UseTodoList = () => {
   const modalRef = useRef<IModalRef>(null);
   const [typeModal, setTypeModal] = useState<ModalType>('Add');
-
-  const {
-    control,
-    formState: {errors},
-  } = useForm<ITodoListForm>({
-    defaultValues: {
-      taskName: '',
-    },
-  });
-
-  const handleSubmit: SubmitHandler<ITodoListForm> = data => {
-    console.log(data);
-  };
+  const dispatch = useDispatch<AppDispatch>();
+  const tasks = useSelector((states: RootState) => states.tasksReducer.tasks);
 
   const handleTypeModal = (type: ModalType): void => setTypeModal(type);
 
@@ -31,13 +26,35 @@ export const useTodoList: UseTodoList = () => {
     }
   };
 
+  const handleGetDetail = (id: string) => {
+    handleTypeModal('Update');
+    dispatch(getTask(id));
+    handleOpenModal();
+  };
+
+  const handleResetForm: HandlerFunction = () => {
+    dispatch(
+      setTask({
+        id: '',
+        taskName: '',
+        taskDescription: '',
+        time: '',
+      }),
+    );
+  };
+
+  useEffect(() => {
+    dispatch(getTasks());
+  }, [dispatch]);
+
   return {
     handleOpenModal,
     modalRef,
-    control,
-    errors,
-    handleSubmit,
     typeModal,
     handleTypeModal,
+    tasks,
+    handleGetDetail,
+    setValue: modalRef.current?.setValue,
+    handleResetForm,
   };
 };
